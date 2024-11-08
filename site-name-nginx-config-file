@@ -1,0 +1,24 @@
+#place in /etc/nginx/sites-available/name_of_config_file
+#make sure to create a link between this file and /etc/nginx/sites-enabled/name_of_config_file
+#replace awesome-cf-compose with name of directory where your files live
+#replace cf.websitejoy.co and www.websitejoy.co with your subdomain and primary domain (primary if you want to issue an ssl)
+
+server {
+        listen 80;
+        root /var/www/awesome-cf-compose;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name cf.websitejoy.co www.websitejoy.co; #read further to understand
+
+        gzip on;
+        gzip_proxied any;
+        gzip_types application/javascript application/x-javascript text/css text/javascript;
+        gzip_comp_level 5;
+        gzip_buffers 16 8k;
+        gzip_min_length 256;
+
+        location ~ \.(?:cfm|cfc) {
+                #8888 should correspond to whatever you set in the docker-compose file
+                proxy_pass  http://localhost:8888;
+        }
+}
