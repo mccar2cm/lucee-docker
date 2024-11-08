@@ -1,5 +1,6 @@
 services:
-    lucee: 
+    #lucee
+    lucee:
         image: lucee/lucee:latest
         #environment:
         #- LUCEE_JAVA_OPTS=-Xmx600m 
@@ -10,4 +11,15 @@ services:
         #      target: /opt/lucee/server/lucee-server/context/password.txt
         ports:
         - "8888:8888"
-        # see readme for optional elements to set java options, copy in code, and/or set Lucee admin password
+        # see readme for optional elements to set java options, copy in code, and/or set Lucee admin 
+
+    #MySQL
+    mysql:
+      image: mysql:latest
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_DATABASE: sampledb
+      volumes:
+        - sample_mysql_data:/var/lib/mysql
+      ports:
+        - "55556:3306"
