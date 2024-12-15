@@ -1,25 +1,26 @@
+version: '3.3'
+
 services:
-    #lucee
     lucee:
         image: lucee/lucee:latest
-        #environment:
-        - LUCEE_JAVA_OPTS=-Xmx1024m 
+        environment:
+          - LUCEE_JAVA_OPTS=-Xmx1024m
         volumes:
-            - ./app:/var/www
-            - type: bind
-              source: ./lucee-admin-password/password.txt
-              target: /opt/lucee/server/lucee-server/context/password.txt
+          - ./app:/var/www
+          - type: bind
+            source: ./lucee-admin-password/password.txt
+            target: /opt/lucee/server/lucee-server/context/password.txt
         ports:
-        - "8888:8888"
+          - "8888:8888"
         # see readme for optional elements to set java options, copy in code, and/or set Lucee admin 
-
-    #MySQL
-    mysql:
-      image: mysql:latest
+    db:
+      image: mysql
+      command: --default-authentication-plugin=mysql_native_password
+      restart: always
       environment:
-        MYSQL_ROOT_PASSWORD: password
-        MYSQL_DATABASE: sampledb
+        MYSQL_ROOT_PASSWORD: example
       volumes:
-        - sample_mysql_data:/var/lib/mysql
-      ports:
-        - "55556:3306"
+        - mysql-data:/var/lib/mysql
+
+volumes:
+    mysql-data:
