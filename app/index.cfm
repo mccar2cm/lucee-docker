@@ -7,12 +7,15 @@
 };
 
 ```
-
-<cfquery name="createUserTable" datasource="#datasource#">
-    CREATE TABLE users (
-        username varchar(200) NOT NULL
-    )
-</cfquery>
+<cftry>
+    <cfcatch type="any">
+        <cfquery name="createUserTable" datasource="#datasource#">
+            CREATE TABLE users (
+                username varchar(200) NOT NULL
+            )
+        </cfquery>
+    </cfcatch>
+</cftry>
 
 ```
 
