@@ -6,6 +6,17 @@
     connectionString: "jdbc:sqlite:#sqliteFilepath#"
 };
 
+```
+
+<cfquery name="createUserTable" datasource="#datasource#">
+    IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='users' AND xtype='U')
+    CREATE TABLE users (
+        username varchar(50) NOT NULL
+    )
+</cfquery>
+
+```
+
 variables.start = getTickCount();
 
 for (i = 1; i <= 1; i++){
