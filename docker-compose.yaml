@@ -7,5 +7,5 @@ services:
         - ./app:/var/www
         - /var/lib/sqlite:/var/www-databases
       ports:
-        - "8889:8888"
+        - "8888:8888"
         # see readme for optional elements to set java options, copy in code, and/or set Lucee admin 
